@@ -51,6 +51,7 @@
           p = pkgsFor system;
           b = p.tectonic-purifier.buildTectonicProject {
             src = ./examples/minimal;
+            resourceRoots."default/default.pdf" = "default/default.pdf";
             doCheck = true;
             nativeBuildInputs = [ p.poppler-utils ];
             checkCommand = ''pdftotext "$out/default/default.pdf" text; test "$(head -n 1 text)" = 42'';
@@ -59,6 +60,10 @@
         {
           inherit (b.packages) environment project;
           release = b.release;
+          resources = import ./tests/resource-consumer.nix {
+            pkgs = p;
+            projection = b.projections.resources;
+          };
           cli = self.packages.${system}.default;
         }
       );

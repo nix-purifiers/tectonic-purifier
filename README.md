@@ -77,6 +77,25 @@ pkgs.tectonic-purifier.buildTectonicProject {
 
 It exposes evaluation-known `packages`, `tests`, `release` and `fetches`.
 
+## Resource projections
+
+Select public built files explicitly when building a project:
+
+```nix
+pkgs.tectonic-purifier.buildTectonicProject {
+  src = ./.;
+  resourceRoots."default/default.pdf" = "default/default.pdf";
+}
+```
+
+`resourceRoots` maps public resource paths to relative producer output paths.
+The result and `packages.project` then expose `projections.resources`, `web`,
+and `java-resources`, with `.documentRoot`, `.directory`, and `.classPath`.
+`resourceDependencies` can supply other resource bundles while retaining their
+paths; collisions fail. The default selection is empty, since output layouts
+vary and the project output also contains source files. Select supporting files
+explicitly. The check reads the selected PDF through ordinary HTTP and Java.
+
 ## Credits
 
 The purifier idea was inspired by nixcloud's
