@@ -69,7 +69,7 @@ runCommand (if isIndex then "tectonic-native-index" else "tectonic-native-workin
               } "$TECTONIC_CACHE_DIR/bundles/data/${native.cacheKey}.prefetch"
               tectonic -X bundle cat -- ${lib.escapeShellArg (builtins.head names)} > /dev/null
             '') chunks}
-            if python3 ${../tectonic_purifier/pack.py} "$TECTONIC_CACHE_DIR/bundles/data/${native.digest}" ${writeText "tectonic-working-set.json" (builtins.toJSON native)} "$out"; then
+            if python3 ${../../tectonic_purifier/pack.py} "$TECTONIC_CACHE_DIR/bundles/data/${native.digest}" ${writeText "tectonic-working-set.json" (builtins.toJSON native)} "$out"; then
               complete=true
               break
             fi

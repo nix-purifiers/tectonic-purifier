@@ -18,12 +18,12 @@
 stdenvNoCC.mkDerivation {
   pname = "tectonic-purifier";
   version = "0.1.0";
-  src = ../.;
+  src = ../..;
   nativeBuildInputs = [ makeWrapper ];
   dontBuild = true;
   installPhase = ''
     mkdir -p "$out/bin" "$out/lib/tectonic-purifier"
-    cp -r tectonic_purifier nix native "$out/lib/tectonic-purifier/"
+    cp -r tectonic_purifier nix lib-overlays pkgs native "$out/lib/tectonic-purifier/"
     install -m755 bin/tectonic-purifier "$out/bin/tectonic-purifier"
     for file in realize release; do
       substituteInPlace "$out/lib/tectonic-purifier/nix/$file.nix" --replace-fail '@nixpkgs@' '${nixpkgsSrc}' --replace-fail '@purifier@' '${purifierSrc}'
