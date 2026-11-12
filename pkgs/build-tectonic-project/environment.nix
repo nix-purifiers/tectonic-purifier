@@ -55,7 +55,7 @@ let
     export SOURCE_DATE_EPOCH=1 TECTONIC_CACHE_DIR="$TMPDIR/cache"
     mkdir -p "$TECTONIC_CACHE_DIR" "$out" outputs
     python3=${python3}/bin/python3
-    "$python3" ${../tectonic_purifier/fonts.py} ${bundle} "$TMPDIR/font-cache" "$TMPDIR/fonts.conf"
+    "$python3" ${../../tectonic_purifier/fonts.py} ${bundle} "$TMPDIR/font-cache" "$TMPDIR/fonts.conf"
     export FONTCONFIG_FILE="$TMPDIR/fonts.conf"
     unset FONTCONFIG_PATH FONTCONFIG_SYSROOT
     cp ${writeText "primer.tex" ''

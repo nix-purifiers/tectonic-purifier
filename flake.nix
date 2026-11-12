@@ -44,7 +44,7 @@
           meta.description = "Lock native Tectonic resources";
         };
       });
-      lib.tectonic-purifier.readLock = import ./nix/read-lock.nix { lib = nixpkgs.lib; };
+      lib.tectonic-purifier = import ./lib-overlays/default { lib = nixpkgs.lib; };
       checks = forAll (
         system:
         let

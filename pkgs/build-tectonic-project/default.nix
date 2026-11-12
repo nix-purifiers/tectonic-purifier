@@ -24,7 +24,7 @@
   checkCommand ? "",
 }:
 let
-  lock = purifier.checkLock (import ./read-lock.nix { inherit lib; } { inherit src lockFile; });
+  lock = purifier.checkLock (import ../../lib-overlays/default/read-lock.nix { inherit lib; } { inherit src lockFile; });
   prepared = import ./environment.nix scope { inherit lock fetchers; };
   source = lib.cleanSourceWith {
     inherit src;
@@ -46,7 +46,7 @@ let
         export SOURCE_DATE_EPOCH=1 TECTONIC_CACHE_DIR="$TMPDIR/cache" TECTONIC_PURIFIER_BUNDLE=${prepared.bundle}
         mkdir -p "$TECTONIC_CACHE_DIR/formats" "$out"
         for file in ${prepared.formats}/*; do ln -s "$file" "$TECTONIC_CACHE_DIR/formats/"; done
-        ${python3}/bin/python3 ${../tectonic_purifier/fonts.py} ${prepared.bundle} "$TMPDIR/font-cache" "$TMPDIR/fonts.conf"
+        ${python3}/bin/python3 ${../../tectonic_purifier/fonts.py} ${prepared.bundle} "$TMPDIR/font-cache" "$TMPDIR/fonts.conf"
         export FONTCONFIG_FILE="$TMPDIR/fonts.conf"
         unset FONTCONFIG_PATH FONTCONFIG_SYSROOT
         ${

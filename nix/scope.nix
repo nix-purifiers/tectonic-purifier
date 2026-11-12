@@ -18,7 +18,7 @@ pkgs.lib.makeScope pkgs.newScope (scope: {
     }
   );
   coreData = builtins.fromJSON (builtins.readFile ../native/latex-resources.json);
-  coreEnvironment = scope.callPackage ./environment.nix { } {
+  coreEnvironment = scope.callPackage ../pkgs/build-tectonic-project/environment.nix { } {
     lock = {
       purifier = "tectonic";
       entries = scope.coreData.entries;
@@ -29,7 +29,7 @@ pkgs.lib.makeScope pkgs.newScope (scope: {
       };
     };
   };
-  nativeFetch = scope.callPackage ./fetch.nix { };
-  cli = scope.callPackage ./cli.nix { inherit nixpkgsSrc purifierSrc; };
-  buildTectonicProject = scope.callPackage ./build-project.nix { };
+  nativeFetch = scope.callPackage ../pkgs/build-tectonic-project/fetch.nix { };
+  cli = scope.callPackage ../pkgs/tectonic-purifier/default.nix { inherit nixpkgsSrc purifierSrc; };
+  buildTectonicProject = scope.callPackage ../pkgs/build-tectonic-project/default.nix { };
 })
